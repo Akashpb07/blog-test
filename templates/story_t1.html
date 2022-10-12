@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="container">
+      <div class="row">
+
+
+        <!-- Latest Posts -->
+        <main class="posts-listing col-lg-8">
+          <div class="container">
+            <div class="row">
+              <!-- post -->
+              {% for story in queryset %}
+              <div class="post col-xl-6">
+                <div class="bg-white rounded shadow-sm"><img src="{{ story.thumbnail.url }}" alt="" class="img-fluid card-img-top">
+          <div class="p-4">
+            <h5> <a href="#" class="text-dark">{{ story.student_name }}</a></h5>
+            <p class="small text-muted mb-0">{{ story.student_overview }}</p>
+            <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+              <p class="small mb-0"><i class="fa fa-star mr-2"></i><span class="font-weight-bold">Band Score:</span></p>
+              <div class=" font-weight-bold badge badge badge-info px-3 ">{{ story.band_score }}</div>
+
+            </div>
+          </div>
+        </div>
+              </div>
+              {% endfor %}
+            </div>
+            <!-- Pagination -->
+            <nav aria-label="Page navigation example">
+              <ul class="pagination pagination-template d-flex justify-content-center">
+                {% if queryset.has_previous %}                
+                <li class="page-item"><a href="?{{ page_request_var }}={{ queryset.previous_page_number }}" class="page-link"> <i class="fa fa-angle-left"></i></a></li>
+                {% endif %}
+                <li class="page-item"><a href="?{{ page_request_var }}={{ queryset.number }}" class="page-link active">{{ queryset.number }}</a></li>
+                {% if queryset.has_next %}
+                <li class="page-item"><a href="?{{ page_request_var }}={{ queryset.next_page_number }}" class="page-link"> <i class="fa fa-angle-right"></i></a></li>
+                {% endif %}
+              </ul>
+            </nav>
+
+            {% if is_paginated %}
+            
+            <nav aria-label="Page navigation example">
+              <ul class="pagination pagination-template d-flex justify-content-center">
+                {% if page_obj.has_previous %}                
+                <li class="page-item"><a href="?{{ page_request_var }}={{ page_obj.previous_page_number }}" class="page-link"> <i class="fa fa-angle-left"></i></a></li>
+                {% endif %}
+                <li class="page-item"><a href="?{{ page_request_var }}={{ page_obj.number }}" class="page-link active">{{ page_obj.number }}</a></li>
+                {% if page_obj.has_next %}
+                <li class="page-item"><a href="?{{ page_request_var }}={{ page_obj.next_page_number }}" class="page-link"> <i class="fa fa-angle-right"></i></a></li>
+                {% endif %}
+              </ul>
+            </nav>
+            
+            {% endif %}
+          </div>
+        </main>
+        {% include 'stories_sidebar.html' with most_recent=most_recent category_count=category_count %}
+      </div>
+    </div>
+
+{% endblock content %}

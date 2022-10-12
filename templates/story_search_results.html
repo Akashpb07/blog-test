@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="m-5 pb-5">
+<h2>Search Results:</h2>
+    <ul class="list-group">
+        {% for story in queryset1 %}
+      <li class="list-group-item"><a href="{{ story.get_absolute_url }}">{{ story.student_name }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="m-5 pb-5">
+<h2>Search Results:</h2>
+    <ul class="list-group">
+
+        {% for post in queryset %}
+      <li class="list-group-item"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}
